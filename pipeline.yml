@@ -1,0 +1,30 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build_job:
+  stage: build
+  script:
+    - echo "Iniciando construção do projeto..."
+
+    - npm install   
+    - npm run build 
+
+    - mvn clean package 
+
+test_job:
+  stage: test
+  script:
+    - echo "Iniciando testes..."
+
+    - npm test   
+
+    - mvn test   
+
+deploy_job:
+  stage: deploy
+  script:
+    - echo "Iniciando implantação do projeto..."
+  
+    - scp -r ./dist/* user@server:/path/to/deploy 
